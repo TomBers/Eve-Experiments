@@ -1,0 +1,60 @@
+# Target Game
+The goal of the game is to hit the targets with your mouse.  Each time you hit a target
+your get a score.
+
+```
+commit
+	[#count n: 0]
+
+```
+
+```
+search
+	count = [#count]
+
+bind @browser
+	[#div text: "count: {{count.n}}"]
+```
+
+__ Setup Canvas __
+
+```
+search
+	svg-size = 500
+
+bind @browser
+	[#svg viewBox: "0 0 500 500", width: svg-size, height: svg-size]
+
+commit
+	[#shape indx:10 x:120 y:100 colour:"yellow"]
+```
+
+Circle
+
+```
+search @session @browser
+  shapes = [#shape indx x y colour]
+  s = [#svg]
+
+bind @browser
+   s.children += [#shape #circle cx: x cy: y r:(indx * 10) stroke:"red" stroke-width:"4" fill: colour]
+   [#div text: (x colour) ]
+```
+
+
+```eve
+search @event @session @browser
+	[#click element: [#shape]]
+  count = [#count]
+  new-num = count.n + 1
+  i = range[from: 1 to: new-num]
+  min = 1
+  max = 500
+  x = random[seed: i] * (max - min) + min
+  y = random[seed: i] * (max - min) + min
+
+commit
+	count <- [n: new-num]
+  [#shape indx:i x:x y:y colour:"blue"]
+
+```
