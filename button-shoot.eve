@@ -1,0 +1,43 @@
+# Button Shooter
+```
+commit
+	[#score n: 0]
+  [#target text:"start"]
+```
+```
+
+search
+	score = [#score n]
+
+bind @browser
+	[#h1 text: "Score : {{score.n}}"]
+```
+```
+
+search 
+	target = [#target text]
+
+bind @browser
+  [#div target class: "flex-row" style: [flex: "0 0 auto", width: 500] children:
+    [#button target text: "{{text}}" style: [width: 180, height:80, font-size: 22]]]
+```
+```
+
+search @event @session @browser
+	[#click #direct-target element: [#button target]]
+  score = [#score n]
+  
+ commit
+ 		score <- [n: score.n + 1]
+ 		target := none
+```
+
+```
+search @session @browser
+  [#time hours minutes seconds]
+  count = count[given: [#button]]
+ 
+ commit 
+ 	[#target text:"{{seconds}}"] 
+ 	
+```
