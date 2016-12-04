@@ -16,7 +16,7 @@ commit
 search
   min = 1
   max = 10
-  x = random[seed: max] * (max - min) + min
+  x = random[seed: 5] * (max - min) + min
   y = random[seed: max] * (max - min) + min
 
 commit

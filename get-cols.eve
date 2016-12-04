@@ -1,0 +1,33 @@
+# Get Cols response
+
+```
+bind @browser
+  [#button style: [height: 40], text: "Get"]
+```
+
+```
+search @event @browser @session
+  [#click element: [#button]]
+
+commit @http
+  [#request #test-data url: "https://jsonplaceholder.typicode.com/photos/?albumId=1"]
+```
+
+```
+search @http
+  [#request #test-data response: [json]]
+  json = [#array]
+  lookup[record: json, attribute, value: [albumId id title url thumbnailUrl]]
+  
+commit
+	[#user albumId id title url thumbnailUrl]
+```
+
+```
+search
+	[#user albumId id title url thumbnailUrl]
+
+bind @browser
+ 	[#div style: [display: "flex", flex-direction:"row", flex-wrap: "wrap", border-style: "solid", border-width: "1"] children:
+  [#img src:"{{thumbnailUrl}}" style: [flex: "auto" width:"10%", height:"50", border-style: "solid" border-color:"gray"]]]
+```
