@@ -5,8 +5,8 @@ bind @browser
 ```
 ```
 search 
-  i = range[from: 1 to: 5]
-  j = range[from: 1 to: 5]
+  i = range[from: 1 to: 10]
+  j = range[from: 1 to: 10]
 
 commit
 	[#sp x:i y:j col:"white"]
@@ -15,12 +15,12 @@ commit
 ```eve
 search
   min = 1
-  max = 5
-  rn = random[seed: max] * (max - min) + min
-  rsq = round[value:rn]
+  max = 10
+  x = random[seed: max] * (max - min) + min
+  y = random[seed: max] * (max - min) + min
 
 commit
-	[#ship x:rsq y:rsq]
+	[#ship x:round[value:x] y:round[value:y]]
 ```
 
 ```
@@ -30,7 +30,7 @@ search
   
 bind @browser
 [#div style: [display: "flex", flex-direction:"row", flex-wrap: "wrap", border-style: "solid", border-width: "1"] children:
-  [#div sp style: [flex: "auto" width:"20%", height:"50", border-style: "solid" border-color:"gray", background-color:"{{sp.col}}"]]]
+  [#div sp style: [flex: "auto" width:"10%", height:"50", border-style: "solid" border-color:"gray", background-color:"{{sp.col}}"]]]
 ```
 
 
