@@ -1,0 +1,48 @@
+# Battle Ships
+```
+bind @browser
+	[#h1 text:"BattleShip"]
+```
+```
+search 
+  i = range[from: 1 to: 5]
+  j = range[from: 1 to: 5]
+
+commit
+	[#sp x:i y:j col:"white"]
+```
+
+```eve
+search
+  min = 1
+  max = 5
+  rn = random[seed: max] * (max - min) + min
+  rsq = round[value:rn]
+
+commit
+	[#ship x:rsq y:rsq]
+```
+
+```
+
+search 
+	sp = [#sp x y]
+  
+bind @browser
+[#div style: [display: "flex", flex-direction:"row", flex-wrap: "wrap", border-style: "solid", border-width: "1"] children:
+  [#div sp style: [flex: "auto" width:"20%", height:"50", border-style: "solid" border-color:"gray", background-color:"{{sp.col}}"]]]
+```
+
+
+```
+search @event @session @browser
+	[#click element: [#div sp]]
+  ship = [#ship]
+  hit = is(ship.x = sp.x ship.y = sp.y)
+  col = if hit = true then "red"
+  			else "green"
+
+commit
+	sp <- [col: col]
+  
+```
