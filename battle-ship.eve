@@ -5,44 +5,42 @@ bind @browser
 ```
 ```
 search 
-  i = range[from: 1 to: 10]
-  j = range[from: 1 to: 10]
+  i = range[from: 1 to: 5]
+  j = range[from: 1 to: 5]
 
 commit
-	[#sp x:i y:j col:"white"]
+	[#sp x:i y:j col:"white" text:""]
 ```
 
 ```eve
 search
-  min = 1
-  max = 10
-  x = random[seed: 5] * (max - min) + min
-  y = random[seed: max] * (max - min) + min
-
+	min = 1
+  max = 5
+	x = range[from:1 to: 5]
+  randy = random[seed: x]
+	y = randy * (max - min) + min
 commit
-	[#ship x:round[value:x] y:round[value:y]]
+  [#ship x: x y: x name:"ship {{x}}"]
 ```
 
 ```
 
 search 
-	sp = [#sp x y]
+	sp = [#sp x y text]
+  order = sort[value: (x y)]
   
 bind @browser
 [#div style: [display: "flex", flex-direction:"row", flex-wrap: "wrap", border-style: "solid", border-width: "1"] children:
-  [#div sp style: [flex: "auto" width:"10%", height:"50", border-style: "solid" border-color:"gray", background-color:"{{sp.col}}"]]]
+  [#div sort: order sp text: "{{sp.text}}" style: [flex: "auto" width:"20%", height:"50", border-style: "solid" border-color:"gray", text-align:"center" background-color:"{{sp.col}}"]]]
 ```
 
 
 ```
 search @event @session @browser
 	[#click element: [#div sp]]
-  ship = [#ship]
-  hit = is(ship.x = sp.x ship.y = sp.y)
-  col = if hit = true then "red"
-  			else "green"
-
+  (col, txt) = if [#ship x:sp.x y:sp.y name] then ("#FD5549", "{{name}}")
+  			else ("#708AD7", "MISS")
 commit
-	sp <- [col: col]
+	sp <- [col: col text:txt] 
   
 ```
