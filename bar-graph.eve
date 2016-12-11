@@ -27,7 +27,7 @@ bind @view
 
 A team of scientists work tirelessly around the clock to keep the mysterious whargarbbl's length updated. Since each bar in the bar chart is bound above, the whargarbbl's bar will stay in sync.
 
-```
+```eve
 search
   [#time minutes seconds]
   length = random[seed: minutes * seconds] * 30

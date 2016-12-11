@@ -40,7 +40,7 @@ search @browser
          else "To each their own I guess."
         
 bind @browser
-  [#div text: "Good choice!"]
+  [#div text: text]
 ```
 
 ## Checkboxes
