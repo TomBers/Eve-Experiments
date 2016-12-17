@@ -1,0 +1,65 @@
+# Flash
+
+```eve
+
+bind @browser
+	[#h1 text:"Flash"]
+
+commit
+  [#max value:5]
+```
+```
+search 
+	[#max value]
+  i = range[from: 1 to: value]
+  j = range[from: 1 to: value]
+
+commit
+	[#sp x:i y:j col:"white" text:""]
+```
+
+
+```
+
+search 
+	[#max value]
+  sp = [#sp x y text]
+  order = sort[value: (x y)]
+  width = round[value: (100 / value)]
+  
+bind @browser
+[#div class: "board" children:
+  [#div class: "piece" sort: order sp text: "{{sp.text}}" style: [width:"{{width}}%", background-color:"{{sp.col}}"]]]
+
+
+```
+
+
+
+```css
+.board {
+  display: flex; 
+  flex-direction: row; 
+  flex-wrap: wrap;
+  justify-content: center;
+  border: solid 2px gray
+}
+.piece {
+  height: 50px; 
+  line-height: 50px;
+  vertical-align: "middle";
+  border-width: 0px 1px 1px 0px; 
+  border-style: dashed; 
+  border-color: gray;
+  text-align: center
+}
+```
+
+```
+search
+  [#time hours minutes seconds]
+  [#div sp x:1 y:1]
+
+commit
+  sp <- [col:"red" text:"tick"]
+```

@@ -1,0 +1,52 @@
+```
+commit @browser
+  [#div class: "greeting" text: "Time"]
+```
+
+```css
+.greeting {
+  font-size: 44
+}
+ .board {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: solid 2px gray
+}
+.piece {
+  color: white;
+  height: 50px;
+  width: 20%;
+  line-height: 50px;
+  vertical-align: middle;
+  border-width: 0px 1px 1px 0px;
+  border-style: dashed;
+  border-color: gray;
+  text-align: center
+}
+```
+
+```
+search
+  [#time hours minutes seconds]
+  min = 0
+  hmax = 360
+  pmax = 100
+  h = round[value: random[seed: seconds] * (hmax - min) + min]
+  s = round[value: random[seed: minutes] * (pmax - min) + min]
+
+commit
+   [#sp text:"{{hours}}:{{minutes}}:{{seconds}}" col:"hsl({{h}}, {{s}}%, 50%)"]
+
+```
+
+
+```
+search
+  sp = [#sp col text]
+  
+bind @browser
+[#div class: "board" children:
+  [#div class: "piece" sp text: "{{sp.text}}" style: [ background-color:"{{sp.col}}"]]]
+```
