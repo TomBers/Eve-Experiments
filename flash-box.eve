@@ -1,11 +1,26 @@
 ```
+search
+  count = count[given: [#sp]]
+
+bind @browser
+  [#div class:"count" text: "Count : {{count}}"]
+  
 commit @browser
   [#div class: "greeting" text: "Time"]
 ```
 
 ```css
+
 .greeting {
   font-size: 44
+}
+.count {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  font-size: 44;
+  color:black;
 }
  .board {
   display: flex;
@@ -16,8 +31,8 @@ commit @browser
 }
 .piece {
   color: white;
-  height: 50px;
-  width: 20%;
+  height: 30px;
+  width: 5%;
   line-height: 50px;
   vertical-align: middle;
   border-width: 0px 1px 1px 0px;
@@ -37,8 +52,8 @@ search
   s = round[value: random[seed: minutes] * (pmax - min) + min]
 
 commit
-   [#sp text:"{{hours}}:{{minutes}}:{{seconds}}" col:"hsl({{h}}, {{s}}%, 50%)"]
-
+  [#sp text:"" col:"hsl({{h}}, {{s}}%, 50%)"]
+//{{hours}}:{{minutes}}:{{seconds}}
 ```
 
 
@@ -46,7 +61,7 @@ commit
 search
   sp = [#sp col text]
   
-bind @browser
-[#div class: "board" children:
+bind @browser  
+  [#div class: "board" children:
   [#div class: "piece" sp text: "{{sp.text}}" style: [ background-color:"{{sp.col}}"]]]
 ```

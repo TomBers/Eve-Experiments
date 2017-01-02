@@ -1,0 +1,49 @@
+# Col Gen
+```
+commit
+  [#direction isVertical:true]
+```
+```
+
+search 
+ [#spot x y col]
+ [#direction isVertical]
+
+bind @browser
+  [#h1 text:"Col Gen isVertical: {{isVertical}}"]
+  [#svg viewBox: "0 0 100 100", width: "800px", children:
+    [#circle cx: x, cy: y, r: 2, fill: col]]
+```
+
+```
+search
+  [#time seconds frames]
+  [#direction isVertical]
+  posmin = 5
+  colmin = 15
+  max = 95
+  hmax = 360
+  pmax = 100
+  xseed = if isVertical = true then seconds
+          else frames
+  yseed = if isVertical = true then frames
+          else seconds
+  randx = random[seed: xseed] * (max - posmin) + posmin
+  randy = random[seed: yseed] * (max - posmin) + posmin
+  h = round[value: random[seed: seconds] * (hmax - colmin) + colmin]
+  s = round[value: random[seed: frames] * (pmax - colmin) + colmin]
+  
+commit
+  [#spot x: randx y: randy col:"hsl({{h}}, {{s}}%, 50%)"]
+```
+
+```
+search @event @session @browser
+  [#click element: [#svg]]
+  direction = [#direction isVertical]
+  newDirection = if isVertical = true then false
+                 else true
+
+commit
+  direction <- [isVertical:newDirection]
+```

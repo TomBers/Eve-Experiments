@@ -6,7 +6,7 @@ search
 bind @browser
   [#h1 text:"Col Gen"]
   [#svg viewBox: "0 0 100 100", width: "800px", children:
-    [#circle cx: x, cy: y, r: 5, fill: col]]
+    [#circle cx: x, cy: y, r: 2, fill: col]]
 ```
 
 ```
@@ -17,8 +17,8 @@ search
   max = 95
   hmax = 360
   pmax = 100
-  randx = random[seed: frames] * (max - posmin) + posmin
-  randy = random[seed: seconds] * (max - posmin) + posmin
+  randx = random[seed:seconds] * (max - posmin) + posmin
+  randy = random[seed: frames] * (max - posmin) + posmin
   h = round[value: random[seed: seconds] * (hmax - colmin) + colmin]
   s = round[value: random[seed: frames] * (pmax - colmin) + colmin]
   
