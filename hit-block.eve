@@ -52,14 +52,11 @@ commit
 
 ### Timer event
 ```
-search
-  [#sp order]
-  m = max[value: order given:order]
-
 search 
-  [#time seconds]
+  [#time minutes seconds]
+  order = "{{minutes}}{{seconds}}"
 
 commit
-//  [#sp order: m + 2 txt: "{{count[given: [#sp]] + 1}}" col:"#FAEAA0"]
+  //[#sp order: order txt:"click"  col:"#FAEAA0"]
   
 ```
