@@ -1,0 +1,19 @@
+# Free Mem
+### Chaper 1
+```eve
+search
+  [#time seconds]
+
+bind @view
+  [#history values: [value: seconds] history-size: 60]
+
+```
+
+### Chapter 2
+```
+search
+  [#time frames]
+
+bind @view
+  [#history values: [value: frames] history-size: 60]
+```

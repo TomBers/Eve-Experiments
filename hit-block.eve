@@ -1,0 +1,65 @@
+# Hit bloc
+### Setup initial board
+```
+search
+  max = 5
+  x = range[from: 1 to:max]
+
+commit
+  [#sp order:x txt:x col:"#8EC3D9"]
+```
+
+### Draw board
+```
+search
+  sp = [#sp order txt]
+  index = sort[value: order]
+  
+
+bind @browser
+  [#div style: [display: "flex", flex-direction:"row", flex-wrap: "wrap" justify-content: "center" border: "solid 2px gray"] children:
+  [#div sort: index sp text: "{{sp.txt}}" class:"cell" style: [background-color: "{{sp.col}}"]]]
+
+```
+
+```css
+.cell {
+  width: 20%; 
+  height: 75px;
+  line-height: 50px; 
+  vertical-align: middle; 
+  border-width: 0px 1px 1px 0px; 
+  border-style: dashed; 
+  border-color: gray;
+  text-align: center; 
+  background-color: white;
+}
+```
+
+### Click event
+```
+search
+  [#sp order]
+  m = max[value: order given:order]
+ 
+search @event @session @browser
+  [#click #direct-target element:[#div sp]]
+  
+commit
+  sp.order := m + 1
+  [#sp order: m + 2 txt: "{{count[given: [#sp]] + 1}}" col:"#FAEAA0"]
+```
+
+### Timer event
+```
+search
+  [#sp order]
+  m = max[value: order given:order]
+
+search 
+  [#time seconds]
+
+commit
+//  [#sp order: m + 2 txt: "{{count[given: [#sp]] + 1}}" col:"#FAEAA0"]
+  
+```
